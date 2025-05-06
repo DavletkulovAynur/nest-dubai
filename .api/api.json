@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "reelly",
+      "source": "@reelly/v1.0#1cpo1xgm92vvsmo",
+      "integrity": "sha512-48Z3mJqEWCX4S3mh0/AjOPcoNrXHk4z6OVZzDZOFfe8looIZz007Z1uerufax6rgLwpmvlVDtnPJRq0V5sa4fw==",
+      "installerVersion": "6.1.3"
+    }
+  ]
+}

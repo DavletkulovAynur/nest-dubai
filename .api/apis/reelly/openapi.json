@@ -1,0 +1,1478 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Reelly Client API",
+    "description": "API для доступу до даних про нерухомість",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://search-listings-production.up.railway.app/v1",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    },
+    "schemas": {
+      "Property": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "developer": {
+            "type": "string"
+          },
+          "area": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "is_partner_project": {
+            "type": "boolean"
+          },
+          "cover_image_url": {
+            "type": "string"
+          },
+          "post_handover": {
+            "type": "boolean"
+          },
+          "sale_status": {
+            "type": "string"
+          },
+          "completion_datetime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "has_escrow": {
+            "type": "boolean"
+          },
+          "coordinates": {
+            "type": "string"
+          },
+          "min_price_aed": {
+            "type": "number"
+          },
+          "min_price": {
+            "type": "number"
+          },
+          "min_price_per_area_unit": {
+            "type": "number"
+          },
+          "max_price": {
+            "type": "number"
+          },
+          "price_currency": {
+            "type": "string"
+          },
+          "area_unit": {
+            "type": "string"
+          }
+        }
+      },
+      "PropertyDetails": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "developer": {
+            "type": "string"
+          },
+          "developer_website": {
+            "type": "string"
+          },
+          "area": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "is_partner_project": {
+            "type": "boolean"
+          },
+          "cover_image_url": {
+            "type": "string"
+          },
+          "post_handover": {
+            "type": "boolean"
+          },
+          "sale_status": {
+            "type": "string"
+          },
+          "completion_datetime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "has_escrow": {
+            "type": "boolean"
+          },
+          "coordinates": {
+            "type": "string"
+          },
+          "overview": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "deposit_description": {
+            "type": "string"
+          },
+          "unit_blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "unit_type": {
+                  "type": "string"
+                },
+                "normalized_type": {
+                  "type": "string"
+                },
+                "unit_bedrooms": {
+                  "type": "string"
+                },
+                "units_amount": {
+                  "type": "integer"
+                },
+                "units_area_from": {
+                  "type": "number"
+                },
+                "units_area_to": {
+                  "type": "number"
+                },
+                "units_price_from": {
+                  "type": "number"
+                },
+                "units_price_to": {
+                  "type": "number"
+                },
+                "area_unit": {
+                  "type": "string"
+                },
+                "price_currency": {
+                  "type": "string"
+                },
+                "typical_unit_image_url": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "payment_plans": {
+            "type": "array"
+          },
+          "master_plan": {
+            "type": "array"
+          },
+          "lobby": {
+            "type": "array"
+          },
+          "interior": {
+            "type": "array"
+          },
+          "architecture": {
+            "type": "array"
+          },
+          "buildings": {
+            "type": "array"
+          }
+        }
+      },
+      "PropertyMarker": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "developer": {
+            "type": "string"
+          },
+          "area": {
+            "type": "string"
+          },
+          "coordinates": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "sale_status": {
+            "type": "string"
+          },
+          "is_partner_project": {
+            "type": "boolean"
+          },
+          "cover_image_url": {
+            "type": "string"
+          },
+          "min_price": {
+            "type": "number"
+          }
+        }
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "bbox_sw_lat": {
+            "type": "number"
+          },
+          "bbox_sw_lng": {
+            "type": "number"
+          },
+          "bbox_ne_lat": {
+            "type": "number"
+          },
+          "bbox_ne_lng": {
+            "type": "number"
+          }
+        }
+      },
+      "Developer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          }
+        }
+      },
+      "Area": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/properties": {
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Get list of properties",
+        "description": "Returns a paginated list of properties with optional filtering",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_ids",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of project IDs to search for"
+          },
+          {
+            "name": "search_query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by project name, developer name or area name"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 12
+            },
+            "description": "Items per page (max 50)"
+          },
+          {
+            "name": "areas",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of area IDs"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by country"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by region"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of project statuses"
+          },
+          {
+            "name": "unit_types",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of unit types"
+          },
+          {
+            "name": "is_partner_project",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by partner project status"
+          },
+          {
+            "name": "developer",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of developer IDs"
+          },
+          {
+            "name": "post_handover",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by post handover availability"
+          },
+          {
+            "name": "sale_status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of sale statuses"
+          },
+          {
+            "name": "has_escrow",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by escrow availability"
+          },
+          {
+            "name": "unit_price_from",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Minimum unit price"
+          },
+          {
+            "name": "unit_price_to",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Maximum unit price"
+          },
+          {
+            "name": "price_type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "unit",
+                "area"
+              ],
+              "default": "unit"
+            },
+            "description": "Whether to interpret price ranges as per unit or per area unit"
+          },
+          {
+            "name": "unit_area_from",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Minimum unit area"
+          },
+          {
+            "name": "unit_area_to",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Maximum unit area"
+          },
+          {
+            "name": "unit_bedrooms",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of bedroom configurations"
+          },
+          {
+            "name": "completion_date_ranges",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of completion date ranges"
+          },
+          {
+            "name": "preferred_currency",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "AED"
+            },
+            "description": "Preferred currency for price values"
+          },
+          {
+            "name": "preferred_area_unit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "sqft"
+            },
+            "description": "Preferred unit for area values"
+          },
+          {
+            "name": "bbox_sw_lat",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Southwest latitude of bounding box"
+          },
+          {
+            "name": "bbox_sw_lng",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Southwest longitude of bounding box"
+          },
+          {
+            "name": "bbox_ne_lat",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Northeast latitude of bounding box"
+          },
+          {
+            "name": "bbox_ne_lng",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Northeast longitude of bounding box"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of properties successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "developer": {
+                            "type": "string"
+                          },
+                          "area": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "is_partner_project": {
+                            "type": "boolean"
+                          },
+                          "cover_image_url": {
+                            "type": "string"
+                          },
+                          "post_handover": {
+                            "type": "boolean"
+                          },
+                          "sale_status": {
+                            "type": "string"
+                          },
+                          "completion_datetime": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "has_escrow": {
+                            "type": "boolean"
+                          },
+                          "coordinates": {
+                            "type": "string"
+                          },
+                          "min_price_aed": {
+                            "type": "number"
+                          },
+                          "min_price": {
+                            "type": "number"
+                          },
+                          "min_price_per_area_unit": {
+                            "type": "number"
+                          },
+                          "max_price": {
+                            "type": "number"
+                          },
+                          "price_currency": {
+                            "type": "string"
+                          },
+                          "area_unit": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "pages": {
+                          "type": "integer"
+                        },
+                        "has_next": {
+                          "type": "boolean"
+                        },
+                        "has_prev": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/properties/{property_id}": {
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Get property details",
+        "description": "Returns detailed information about a specific property",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "property_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Property ID"
+          },
+          {
+            "name": "preferred_currency",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "AED"
+            },
+            "description": "Preferred currency for price values"
+          },
+          {
+            "name": "preferred_area_unit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "sqft"
+            },
+            "description": "Preferred unit for area values"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Property details successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "developer": {
+                      "type": "string"
+                    },
+                    "developer_website": {
+                      "type": "string"
+                    },
+                    "area": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "is_partner_project": {
+                      "type": "boolean"
+                    },
+                    "cover_image_url": {
+                      "type": "string"
+                    },
+                    "post_handover": {
+                      "type": "boolean"
+                    },
+                    "sale_status": {
+                      "type": "string"
+                    },
+                    "completion_datetime": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "has_escrow": {
+                      "type": "boolean"
+                    },
+                    "coordinates": {
+                      "type": "string"
+                    },
+                    "overview": {
+                      "type": "string"
+                    },
+                    "website": {
+                      "type": "string"
+                    },
+                    "deposit_description": {
+                      "type": "string"
+                    },
+                    "unit_blocks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "unit_type": {
+                            "type": "string"
+                          },
+                          "normalized_type": {
+                            "type": "string"
+                          },
+                          "unit_bedrooms": {
+                            "type": "string"
+                          },
+                          "units_amount": {
+                            "type": "integer"
+                          },
+                          "units_area_from": {
+                            "type": "number"
+                          },
+                          "units_area_to": {
+                            "type": "number"
+                          },
+                          "units_price_from": {
+                            "type": "number"
+                          },
+                          "units_price_to": {
+                            "type": "number"
+                          },
+                          "area_unit": {
+                            "type": "string"
+                          },
+                          "price_currency": {
+                            "type": "string"
+                          },
+                          "typical_unit_image_url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "payment_plans": {
+                      "type": "array"
+                    },
+                    "master_plan": {
+                      "type": "array"
+                    },
+                    "lobby": {
+                      "type": "array"
+                    },
+                    "interior": {
+                      "type": "array"
+                    },
+                    "architecture": {
+                      "type": "array"
+                    },
+                    "buildings": {
+                      "type": "array"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "404": {
+            "description": "Property not found"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/property-markers": {
+      "get": {
+        "tags": [
+          "Properties"
+        ],
+        "summary": "Get property markers",
+        "description": "Returns property markers for map display",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_ids",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of project IDs"
+          },
+          {
+            "name": "unit_types",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of unit types"
+          },
+          {
+            "name": "areas",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of area IDs"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by country"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by region"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of project statuses"
+          },
+          {
+            "name": "is_partner_project",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by partner project status"
+          },
+          {
+            "name": "developer",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of developer IDs"
+          },
+          {
+            "name": "post_handover",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by post handover availability"
+          },
+          {
+            "name": "sale_status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of sale statuses"
+          },
+          {
+            "name": "has_escrow",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by escrow availability"
+          },
+          {
+            "name": "unit_price_from",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Minimum unit price"
+          },
+          {
+            "name": "unit_price_to",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Maximum unit price"
+          },
+          {
+            "name": "price_type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "unit",
+                "area"
+              ],
+              "default": "unit"
+            },
+            "description": "Whether to interpret price ranges as per unit or per area unit"
+          },
+          {
+            "name": "unit_area_from",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Minimum unit area"
+          },
+          {
+            "name": "unit_area_to",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Maximum unit area"
+          },
+          {
+            "name": "unit_bedrooms",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of bedroom configurations"
+          },
+          {
+            "name": "completion_date_ranges",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated list of completion date ranges"
+          },
+          {
+            "name": "preferred_currency",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "AED"
+            },
+            "description": "Preferred currency for price values"
+          },
+          {
+            "name": "preferred_area_unit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "sqft"
+            },
+            "description": "Preferred unit for area values"
+          },
+          {
+            "name": "bbox_sw_lat",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Southwest latitude of bounding box"
+          },
+          {
+            "name": "bbox_sw_lng",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Southwest longitude of bounding box"
+          },
+          {
+            "name": "bbox_ne_lat",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Northeast latitude of bounding box"
+          },
+          {
+            "name": "bbox_ne_lng",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Northeast longitude of bounding box"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of property markers successfully retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "markers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "developer": {
+                            "type": "string"
+                          },
+                          "area": {
+                            "type": "string"
+                          },
+                          "coordinates": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "sale_status": {
+                            "type": "string"
+                          },
+                          "is_partner_project": {
+                            "type": "boolean"
+                          },
+                          "cover_image_url": {
+                            "type": "string"
+                          },
+                          "min_price": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get available countries",
+        "description": "Returns a list of available countries",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available countries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/project-statuses": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get project statuses",
+        "description": "Returns a list of available project statuses",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available project statuses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/areas": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get areas",
+        "description": "Returns a list of available areas",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search term for area name"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter areas by country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available areas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/sale-statuses": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get sale statuses",
+        "description": "Returns a list of available sale statuses",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available sale statuses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/unit-bedrooms": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get unit bedroom configurations",
+        "description": "Returns a list of available unit bedroom configurations",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available unit bedroom configurations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/unit-types": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get unit types",
+        "description": "Returns a list of available unit types",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available unit types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/regions": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get regions",
+        "description": "Returns a list of regions with coordinates",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of regions with coordinates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "bbox_sw_lat": {
+                        "type": "number"
+                      },
+                      "bbox_sw_lng": {
+                        "type": "number"
+                      },
+                      "bbox_ne_lat": {
+                        "type": "number"
+                      },
+                      "bbox_ne_lng": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/developers": {
+      "get": {
+        "tags": [
+          "Reference Data"
+        ],
+        "summary": "Get developers",
+        "description": "Returns a list of available developers",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search term for developer name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available developers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "website": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}

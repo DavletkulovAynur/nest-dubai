@@ -7,8 +7,15 @@ export class ReellyController {
   constructor(private readonly httpService: HttpService) {}
 
   @Get('properties')
-  async getProperties(@Query('search_query') searchQuery: string) {
-    const url = `https://search-listings-production.up.railway.app/v1/properties?search_query=${searchQuery}`;
+  async getProperties(@Query('search_query') searchQuery?: string) {
+    //FIXME:
+    // Формируем URL: добавляем параметр только если он есть
+    const baseUrl =
+      'https://search-listings-production.up.railway.app/v1/properties';
+    const url = searchQuery
+      ? `${baseUrl}?search_query=${encodeURIComponent(searchQuery)}`
+      : baseUrl;
+
     const response = await firstValueFrom(
       this.httpService.get(url, {
         headers: {
@@ -16,6 +23,7 @@ export class ReellyController {
         },
       }),
     );
+
     return response.data;
   }
 }

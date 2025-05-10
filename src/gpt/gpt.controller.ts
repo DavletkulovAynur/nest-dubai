@@ -8,7 +8,7 @@ export class GptController {
   @Post('ask')
   async askGpt(@Body() body: { question: string; context?: string }) {
     const { question, context } = body;
-    const answer = await this.gptService.ask(question, context);
+    const answer = await this.gptService.ask(question);
     return { answer };
   }
 }

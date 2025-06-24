@@ -16,7 +16,21 @@ export class GptService {
     });
   }
 
-  async ask(question: string): Promise<string> {
+  async ask(question: string): Promise<{
+    title: string;
+    results: Array<{
+      id: number;
+      name: string;
+      developer: string;
+      area: string;
+      coordinates: string;
+      image: string;
+      status: string;
+      sale_status: string;
+      price_currency: string;
+      post_handover: boolean;
+    }>;
+  }> {
     // Формируем prompt с инструкцией о формате ответа
     const prompt = `
         Ты — интеллектуальный помощник по поиску жилья.
@@ -92,8 +106,52 @@ export class GptService {
     const messages = await this.openai.beta.threads.messages.list(thread.id);
     const lastMessage = messages.data.find((msg) => msg.role === 'assistant');
 
-    return lastMessage?.content?.[0]?.type === 'text'
-      ? lastMessage.content[0].text.value
-      : 'Ответ не найден.';
+    const textResponse =
+      lastMessage?.content?.[0]?.type === 'text'
+        ? lastMessage.content[0].text.value
+        : null;
+
+    if (!textResponse) {
+      return {
+        title: 'Ответ не найден.',
+        results: [],
+      };
+    }
+
+    try {
+      console.log('Raw response:', textResponse);
+      const cleanedResponse = extractJsonFromMarkdown(textResponse);
+      console.log('Cleaned response:', cleanedResponse);
+      const parsed = JSON.parse(cleanedResponse);
+      return parsed;
+    } catch (err) {
+      console.error('Ошибка при парсинге ответа:', err);
+      console.error('Raw response was:', textResponse);
+      return {
+        title: 'Ошибка при обработке ответа ассистента.',
+        results: [],
+      };
+    }
   }
+}
+
+// ✅ Функция извлечения чистого JSON из markdown-блоков
+function extractJsonFromMarkdown(text: string): string {
+  console.log('Extracting JSON from:', text);
+
+  // Попытка найти блок ```json ... ```
+  const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (codeBlockMatch) {
+    return codeBlockMatch[1].trim();
+  }
+
+  // Альтернатива: извлекаем по фигурным скобкам
+  const firstBrace = text.indexOf('{');
+  const lastBrace = text.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && firstBrace < lastBrace) {
+    return text.substring(firstBrace, lastBrace + 1).trim();
+  }
+
+  // Возврат оригинального текста как fallback
+  return text.trim();
 }

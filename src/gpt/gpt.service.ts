@@ -113,14 +113,39 @@ export class GptService {
     }
 
     try {
-      const parsed = JSON.parse(textResponse);
+      console.log('Raw response:', textResponse);
+      const cleanedResponse = extractJsonFromMarkdown(textResponse);
+      console.log('Cleaned response:', cleanedResponse);
+      const parsed = JSON.parse(cleanedResponse);
       return parsed;
     } catch (err) {
       console.error('Ошибка при парсинге ответа:', err);
+      console.error('Raw response was:', textResponse);
       return {
         title: 'Ошибка при обработке ответа ассистента.',
         results: [],
       };
     }
   }
+}
+
+// ✅ Функция извлечения чистого JSON из markdown-блоков
+function extractJsonFromMarkdown(text: string): string {
+  console.log('Extracting JSON from:', text);
+
+  // Попытка найти блок ```json ... ```
+  const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (codeBlockMatch) {
+    return codeBlockMatch[1].trim();
+  }
+
+  // Альтернатива: извлекаем по фигурным скобкам
+  const firstBrace = text.indexOf('{');
+  const lastBrace = text.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && firstBrace < lastBrace) {
+    return text.substring(firstBrace, lastBrace + 1).trim();
+  }
+
+  // Возврат оригинального текста как fallback
+  return text.trim();
 }
